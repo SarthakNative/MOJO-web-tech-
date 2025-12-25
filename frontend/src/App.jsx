@@ -130,7 +130,7 @@ function App() {
                 onClick={handleLogin}
                 className="group relative w-full max-w-xs overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 p-[2px] transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/25"
               >
-                <div className="relative rounded-2xl bg-white px-8 py-4 transition-all duration-300 group-hover:bg-transparent">
+                <div className="relative rounded-2xl bg-white px-8 py-4 transition-all duration-300 group-hover:bg-transparent cursor-pointer">
                   <span className="relative z-10 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent font-semibold text-lg group-hover:text-white cursor-pointer">
                     Login with Instagram
                   </span>
