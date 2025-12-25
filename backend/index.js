@@ -6,10 +6,17 @@ import axios from "axios";
 import dotenv from "dotenv";
 
 dotenv.config();
+const {
+  INSTAGRAM_APP_ID,
+  INSTAGRAM_APP_SECRET,
+  INSTAGRAM_REDIRECT_URI,
+  PORT,
+  FRONTEND_URL
+} = process.env;
 
 const app = express();
 
-const whitelist = [process.env.FRONTEND_URL];
+const whitelist = [FRONTEND_URL];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -26,13 +33,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-const {
-  INSTAGRAM_APP_ID,
-  INSTAGRAM_APP_SECRET,
-  INSTAGRAM_REDIRECT_URI,
-  PORT,
-  FRONTEND_URL
-} = process.env;
+
 
 /**
  * STEP 1: Redirect user to Instagram Login

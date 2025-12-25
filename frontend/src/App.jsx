@@ -10,9 +10,9 @@ function App() {
   const [comments, setComments] = useState([]);
   const [replyText, setReplyText] = useState("");
   const [replyStatus, setReplyStatus] = useState("");
-  const BACKEND_URL=process.env.BACKEND_URL;
+  
   const handleLogin = () => {
-    window.location.href = `${BACKEND_URL}}/auth/instagram`;
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/instagram`;
   };
 
   useEffect(() => {
@@ -79,7 +79,7 @@ function App() {
 
           <button
             onClick={handleLogin}
-            className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 text-white font-semibold"
+            className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 text-white font-semibold cursor-pointer"
           >
             Login with Instagram
           </button>
