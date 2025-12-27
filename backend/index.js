@@ -5,8 +5,10 @@ import http from "http";
 import fs from "fs";
 import dotenv from "dotenv";
 import routes from "./routes/index.js";
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
+
 
 const {
   PORT,
@@ -15,7 +17,7 @@ const {
 } = process.env;
 
 const app = express();
-
+app.use(cookieParser()); // Add this middleware
 // CORS configuration
 const whitelist = [FRONTEND_URL];
 const corsOptions = {

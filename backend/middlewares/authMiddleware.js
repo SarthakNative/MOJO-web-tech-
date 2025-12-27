@@ -1,14 +1,34 @@
+// authMiddleware.js 
+import { COOKIE_NAMES } from '../controllers/authController.js'; // Import the cookie names
+
+/**
+ * Helper function to get auth data from cookies
+ */
+const getAuthFromCookies = (req) => {
+  const igAccessToken = req.cookies[COOKIE_NAMES.IG_ACCESS_TOKEN];
+  const igUserId = req.cookies[COOKIE_NAMES.IG_USER_ID];
+  
+  return {
+    igAccessToken,
+    igUserId,
+    isAuthenticated: !!(igAccessToken && igUserId)
+  };
+};
+
 /**
  * Authentication middleware
  * Checks if user is authenticated with Instagram
  */
+// authMiddleware.js
+
 export const requireAuth = (req, res, next) => {
-  if (!global.IG_ACCESS_TOKEN || !global.IG_USER_ID) {
-    return res.status(401).json({
-      error: "Authentication required",
-      message: "Please authenticate with Instagram first"
-    });
+  const token = req.cookies[COOKIE_NAMES.SYSTEM_TOKEN];
+  const igId = req.cookies[COOKIE_NAMES.IG_BUSINESS_ID];
+
+  if (!token || !igId) {
+    return res.status(401).json({ error: "Not authenticated" });
   }
+
   next();
 };
 
@@ -17,7 +37,11 @@ export const requireAuth = (req, res, next) => {
  * Continues even if not authenticated, but adds auth info to request
  */
 export const optionalAuth = (req, res, next) => {
-  req.isAuthenticated = !!(global.IG_ACCESS_TOKEN && global.IG_USER_ID);
-  req.userId = global.IG_USER_ID;
+  const { isAuthenticated, igAccessToken, igUserId } = getAuthFromCookies(req);
+  
+  req.isAuthenticated = isAuthenticated;
+  req.igUserId = igUserId;
+  req.igAccessToken = igAccessToken;
+  
   next();
 };
